@@ -44,18 +44,17 @@ public class MasterPassword {
 			password1 = scan.nextLine();
 			if (password1.equals(ultpassword)) {
 				System.out.println("type 1 to view your accounts, or 2 to store new accounts");
-				Scanner scan2 = new Scanner(System.in);
-				option = scan2.nextInt();
+				option = scan.nextInt();
 				if (option == 1) {
 					//Recall all the accounts that are stored
 					System.out.println("sh");
 				} else if (option == 2) {
 					//store new account
 					System.out.println("Type your name of the website");
-					nameofid = scan3.nextLine();
+					nameofid = scan.nextLine();
 					System.out.println("Type your ID");
-					nameofpass = scan4.nextLine();
-					nameofweb = scan5.nextLine();
+					nameofpass = scan.nextLine();
+					nameofweb = scan.nextLine();
 					// put these data into constructors
 				} else {
 					//wrong number so error
