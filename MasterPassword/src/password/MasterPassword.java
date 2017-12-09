@@ -1,3 +1,5 @@
+package password;
+
 //Program created by Tony and Taehan
 import java.util.Scanner;
 public class MasterPassword {
@@ -50,14 +52,14 @@ public class MasterPassword {
 		int option = 0;
 		password1 = "";
 		data = "";
-		if (ultpassword == null || ultpassword.isEmpty()) {
-			System.out.println("Please setup the password!");
-			Scanner scan = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);
+		while (ultpassword == null || ultpassword.isEmpty()) {
+			System.out.println("Please setup the password!");			
 			ultpassword = scan.nextLine();
 		} 
 		if (ultpassword != null && !ultpassword.isEmpty()) {
 			System.out.println("Type your password to view");
-			Scanner scan = new Scanner(System.in);
+			
 			password1 = scan.nextLine();
 			if (password1.equals(ultpassword)) {
 				System.out.println("type 1 to view your accounts, or 2 to store new accounts");
