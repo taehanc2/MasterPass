@@ -1,41 +1,20 @@
 package password;
-
-//Program created by Tony and Taehan
 import java.util.Scanner;
+
 public class MasterPassword {
-//building constructors (getter and setter) to use it later on
-	public String ID;
-	public String Password;
-	public String website;
+
+	private String ID;
+	private String password;
+	private String website;
 	
-	public void idandpass(String ID, String Password, String website) {
+	public MasterPassword() {
+		
+	}
+	
+	public MasterPassword(String ID, String Password, String website) {
 		this.ID = ID;
-		this.Password = Password;
+		this.password = Password;
 		this.website = website;
-	}
-	
-	public void setID(String input) {
-		this.ID = input;
-	}
-	
-	public String getID() {
-		return ID;
-	}
-	
-	public void setPassword(String input) {
-		this.Password = input;
-	}
-	
-	public String getPassword() {
-		return Password;
-	}
-	
-	public void setwebsite(String input) {
-		this.website = input;
-	}
-	
-	public String getwebsite() {
-		return website;
 	}
 	
 	public static String ultpassword;
@@ -47,10 +26,12 @@ public class MasterPassword {
 	public static String nameofpass;
 	
 	public static void main(String[] args) {
+		MasterPassword mypass = new MasterPassword();
+		
 		String password1;
 		String data;
 		int option = 0;
-		password1 = "";
+		mypass.password = "";
 		data = "";
 		Scanner scan = new Scanner(System.in);
 		while (ultpassword == null || ultpassword.isEmpty()) {
@@ -71,12 +52,9 @@ public class MasterPassword {
 				} else if (option == 2) {
 					//store new account
 					System.out.println("Type your name of the website");
-					Scanner scan3 = new Scanner(System.in);
 					nameofid = scan3.nextLine();
 					System.out.println("Type your ID");
-					Scanner scan4 = new Scanner(System.in);
 					nameofpass = scan4.nextLine();
-					Scanner scan5 = new Scanner(System.in);
 					nameofweb = scan5.nextLine();
 					// put these data into constructors
 				} else {
