@@ -7,7 +7,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class MasterPassword {
+	/**
+	 * Keeps track if user wants to do more.
+	 */
 	private boolean more;
+	
+	/**
+	 * Keeps track if the user has run the program before.
+	 */
 	private boolean hasSetup;
 	public Scanner scan;
 	public Scanner scan2;
@@ -20,16 +27,30 @@ public class MasterPassword {
 	File out;
 	String input;
 
+	/**
+	 * Constructor for MasterPassword.
+	 * Creates a file if it does not exist, and sets up scanners. 
+	 * @throws IOException
+	 */
 	public MasterPassword() throws IOException {
+		//TODO: Setup salting
 		//		random = new Random();
 		scan = new Scanner(System.in);
-		out = new File("/home/proxycannon/git/MasterPass/MasterPassword/new.txt");		
+		out = new File("./new.txt");
+		if (!out.exists()) {
+			out.createNewFile();
+		}
 		copyOfText = FileUtils.readFileToString(out, "UTF-8");		
 		more = true;
 		scan2 = new Scanner(copyOfText);
 		hasSetup = scan2.hasNext();				
-	}	
-
+	}
+	
+	/**
+	 * Runs the entire program 
+	 * TODO: Refactor
+	 * @throws IOException
+	 */
 	public void run() throws IOException {
 		// Checks to see if password has been setup
 		while (!hasSetup) {
@@ -39,7 +60,7 @@ public class MasterPassword {
 			String input2 = scan.next();
 			String hashed = Encryptor.sha256(input);
 			if (input.equals(input2)) {
-				FileUtils.writeStringToFile(out, (hashed + "\n"), "UTF-8", true);
+				FileUtils.writeStringToFile(out, (hashed + "\n"), "UTF-8", false);
 				hasSetup = true;
 			} else {
 				System.out.println("Passwords do not match! Please try again.");
@@ -57,6 +78,7 @@ public class MasterPassword {
 			this.trypassword = Encryptor.sha256(scan.next());
 		}
 
+		// Uses MD5 as key for AES 
 		String key = Encryptor.MD5(ultpassword);
 		String temp = "";
 		scan2 = new Scanner(copyOfText);
@@ -70,7 +92,10 @@ public class MasterPassword {
 		}
 		copyOfText = temp;
 
+		// Decrypt the text file!
 		copyOfText = Encryptor.decrypt(key, "0000000000000000", copyOfText);
+		
+		// TODO: Implement salt
 		//		byte[] randombytes = new byte[8];
 		//		random.nextBytes(randombytes);		
 		//		String initVector = new String(randombytes);
@@ -129,6 +154,8 @@ public class MasterPassword {
 			}
 
 		}
+		
+		// Takes in everything but the password
 		String finalCopyOfText = "";
 		scan2 = new Scanner(copyOfText);	
 		count = 0;
@@ -138,15 +165,16 @@ public class MasterPassword {
 			count++;
 		}
 		
+		// Takes the contents and encrypts it!
 		finalCopyOfText = Encryptor.encrypt(key, "0000000000000000", finalCopyOfText);
 
+		// Writes to file
 		FileUtils.writeStringToFile(out, (ultpassword + "\n"), "UTF-8", false);
 		FileUtils.writeStringToFile(out, finalCopyOfText, "UTF-8", true);
 	}
 
 
 	public static void main(String[] args) throws IOException {
-
 		MasterPassword mypass = new MasterPassword();
 		mypass.run();
 
